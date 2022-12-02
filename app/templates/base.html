@@ -1,0 +1,26 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>Consulta de Empresas e Estabelecimentos</h1>
+  <ul>
+    {% if session['logged_in'] %}
+      <li><a href="{{ url_for('cnpj') }}">Pesquisa por CNPJ</a>
+      <li><a href="{{ url_for('razao_social') }}">Pesquisa por Razão Social</a>
+      <li><a href="{{ url_for('endereco') }}">Pesquisa por Endereço</a>
+      <li><a href="{{ url_for('telefone') }}">Pesquisa por Telefone</a>
+    {% else %}
+      <li><a href="{{ url_for('signup') }}">Criar conta</a>
+      <li><a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
